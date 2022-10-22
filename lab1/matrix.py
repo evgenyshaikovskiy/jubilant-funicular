@@ -3,6 +3,8 @@ import numpy as np
 
 
 def m_dot(X, Y):
+    if X.shape[1] != Y.shape[0]:
+        return None
     return [[sum(a * b for a, b in zip(X_ROW, Y_COL)) for Y_COL in zip(*Y)] for X_ROW in X]
 
 
@@ -33,14 +35,15 @@ class m_test(unittest.TestCase):
         self.assertEqual(self.X.T, m_t(self.X))
 
 
-if __name__ == 'main':
-    arr = np.arange(50)
-    X = arr.reshape(10, 5)
-    #print(X)
-    arr = np.arange(100)
-    Y = arr.reshape(5, 20)
     
     
-    print(np.dot(X, Y), m_dot(X, Y))
-    print(X.T == m_t(X))
-    print(Y.T == m_t(Y))
+# print(np.dot(X, Y), m_dot(X, Y))
+# print(X.T == m_t(X))
+# print(Y.T == m_t(Y))
+
+arr = np.arange(50)
+X = arr.reshape(10, 5)
+#print(X)
+arr = np.arange(100)
+Y = arr.reshape(5, 20)
+print(m_dot(X, Y) == np.dot(X, Y))
